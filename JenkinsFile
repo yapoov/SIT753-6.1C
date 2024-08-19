@@ -13,15 +13,14 @@ pipeline {
                 echo 'Running unit tests with Jest...'
                 echo 'Running integration tests with Selenium...'
                 echo 'Tests: All unit and integration tests passed' 
-                post{
+            }
+	    post{
                     always{
                         emailext body: 'Unit and Integration Test Stage completed with status: ${currentBuild.result}', 
                         subject: 'Unit and Integration Test Stage Status', 
                         to: 's224404195@deakin.edu.au',
                         attachLog: true
                     }
-                }
-                
             }
         }
 
@@ -36,15 +35,15 @@ pipeline {
             steps {
                 echo 'Performing security scan with OWASP Dependency-Check...'
                 echo 'Security Scan: No critical vulnerabilities detected' 
-                post{
+            }
+	    post{
                     always{
                         emailext body: 'Security Scan Stage completed with status: ${currentBuild.result}', 
                         subject: 'Security Scan Stage Status', 
                         to: 's224404195@deakin.edu.au',
                         attachLog: true
                     }
-                }
-            }
+        	}
         }
 
         stage('Deploy to Staging') {
