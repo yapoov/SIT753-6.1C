@@ -1,0 +1,74 @@
+pipeline {
+    agent any 
+    triggers {
+        pollSCM('*/1 * * * *') 
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building code with Maven...'
+                echo 'Build: Code compiled and packaged successfully'
+            }
+        }
+
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Running unit tests with Jest...'
+                echo 'Running integration tests with Selenium...'
+                echo 'Tests: All unit and integration tests passed' 
+                post{
+                    always{
+                        emailext body: 'Unit and Integration Test Stage completed with status: ${currentBuild.result}', 
+                        subject: 'Unit and Integration Test Stage Status', 
+                        to: 's224404195@deakin.edu.au',
+                        attachLog: true
+                    }
+                }
+                
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Analyzing code quality with SonarQube...' 
+                echo 'Code Analysis: No major issues found, code quality meets standards'
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Performing security scan with OWASP Dependency-Check...'
+                echo 'Security Scan: No critical vulnerabilities detected' 
+                post{
+                    always{
+                        emailext body: 'Security Scan Stage completed with status: ${currentBuild.result}', 
+                        subject: 'Security Scan Stage Status', 
+                        to: 's224404195@deakin.edu.au',
+                        attachLog: true
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying to staging server with Ansible...' 
+                echo 'Deploy to Staging: Application successfully deployed to staging server'
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests on staging with Selenium...'
+                echo 'Integration Tests on Staging: All tests passed in the staging environment'
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying to production server with Ansible...' 
+                echo 'Deploy to Production: Application successfully deployed to production server'
+            }
+        }
+    }
+}
