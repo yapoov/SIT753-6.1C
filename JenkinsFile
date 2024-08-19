@@ -15,8 +15,8 @@ pipeline {
                 echo 'Tests: All unit and integration tests passed' 
             }
 	    post{
-                    always{
-                        emailext body: 'Unit and Integration Test Stage completed with status: ${currentBuild.result}', 
+                    success{
+                        emailext body: 'Unit and Integration Test Stage completed with status: Success, 
                         subject: 'Unit and Integration Test Stage Status', 
                         to: 's224404195@deakin.edu.au',
                         attachLog: true
@@ -37,8 +37,8 @@ pipeline {
                 echo 'Security Scan: No critical vulnerabilities detected' 
             }
 	    post{
-                    always{
-                        emailext body: 'Security Scan Stage completed with status: ${currentBuild.result}', 
+                    success{
+                        emailext body: 'Security Scan Stage completed with status: Success', 
                         subject: 'Security Scan Stage Status', 
                         to: 's224404195@deakin.edu.au',
                         attachLog: true
