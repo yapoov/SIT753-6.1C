@@ -15,12 +15,11 @@ pipeline {
                 echo 'Tests: All unit and integration tests passed' 
             }
 	    post{
-                    success{
-                        emailext body: 'Unit and Integration Test Stage completed with status: Success',
-                        subject: 'Unit and Integration Test Stage Status', 
-                        to: 'orgilo148@gmail.com',
-                        attachLog: true
-                    }
+                 emailext body: 'Unit and Integration Test Stage completed with status: Success',
+                 subject: 'Unit and Integration Test Stage Status', 
+                 to: 'orgilo148@gmail.com',
+                 attachLog: true
+                 
             }
         }
 
