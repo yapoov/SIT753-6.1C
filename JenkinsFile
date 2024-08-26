@@ -18,7 +18,7 @@ pipeline {
                     success{
                         emailext body: 'Unit and Integration Test Stage completed with status: Success',
                         subject: 'Unit and Integration Test Stage Status', 
-                        to: 's224404195@deakin.edu.au',
+                        to: 'orgilo148@gmail.com',
                         attachLog: true
                     }
             }
