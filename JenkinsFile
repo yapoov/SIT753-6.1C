@@ -13,14 +13,13 @@ pipeline {
                 echo 'Running unit tests with Jest...'
                 echo 'Running integration tests with Selenium...'
                 echo 'Tests: All unit and integration tests passed' 
-            }
-	    post{
-                 emailext body: 'Unit and Integration Test Stage completed with status: Success',
-                 subject: 'Unit and Integration Test Stage Status', 
-                 to: 'orgilo148@gmail.com',
-                 attachLog: true
-                 
-            }
+	    
+                emailext( body: 'Unit and Integration Test Stage completed with status: Success',
+                subject: 'Unit and Integration Test Stage Status', 
+                to: 'orgilo148@gmail.com',
+                attachLog: true
+                )
+		}
         }
 
         stage('Code Analysis') {
